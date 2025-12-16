@@ -17,8 +17,8 @@ export default defineConfig({
         background_color: '#1a1a1a',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/',
-        scope: '/',
+        start_url: '/starting-strength/',
+        scope: '/starting-strength/',
         categories: ['health', 'fitness', 'sports'],
         icons: [
           {
