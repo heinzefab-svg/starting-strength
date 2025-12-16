@@ -1,5 +1,24 @@
 <template>
   <div id="app">
+    <!-- Install PWA Banner -->
+    <div v-if="showInstallBanner" class="install-banner">
+      <div class="install-banner-content">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <div>
+          <strong>Install Strength Tracker</strong>
+          <span>Add to home screen for quick access</span>
+        </div>
+      </div>
+      <div class="install-banner-actions">
+        <button @click="installApp" class="btn-install">Install</button>
+        <button @click="dismissInstallBanner" class="btn-dismiss">×</button>
+      </div>
+    </div>
+
     <!-- Desktop Navigation -->
     <nav class="nav nav-desktop">
       <router-link to="/" :class="{ active: $route.name === 'workout' }">
@@ -103,13 +122,43 @@ export default {
   name: 'App',
   data() {
     return {
-      showMenu: false
+      showMenu: false,
+      showInstallBanner: false
     }
+  },
+  mounted() {
+    // Check if already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      return
+    }
+
+    // Check if user dismissed before
+    const dismissed = localStorage.getItem('install-banner-dismissed')
+    if (dismissed) {
+      return
+    }
+
+    // Listen for installable event
+    window.addEventListener('pwa-installable', () => {
+      this.showInstallBanner = true
+    })
   },
   watch: {
     '$route'() {
       this.showMenu = false
       window.scrollTo(0, 0)
+    }
+  },
+  methods: {
+    async installApp() {
+      const installed = await window.installPWA()
+      if (installed) {
+        this.showInstallBanner = false
+      }
+    },
+    dismissInstallBanner() {
+      this.showInstallBanner = false
+      localStorage.setItem('install-banner-dismissed', 'true')
     }
   }
 }

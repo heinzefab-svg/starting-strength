@@ -4,9 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run generate-icons && vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "generate-icons": "node generate-icons.js"
   },
   "dependencies": {
     "chart.js": "^4.4.1",
@@ -18,6 +19,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
     "gh-pages": "^6.3.0",
+    "sharp": "^0.34.5",
     "vite": "^5.1.6",
     "vite-plugin-pwa": "^0.19.5"
   }

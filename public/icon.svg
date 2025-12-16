@@ -1,0 +1,37 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="256" fill="#ff6b35"/>
+
+  <!-- Barbell design -->
+  <!-- Left weight plate -->
+  <rect x="60" y="180" width="80" height="152" rx="8" fill="#1a1a1a"/>
+  <rect x="70" y="190" width="60" height="132" rx="4" fill="#2a2a2a"/>
+
+  <!-- Left bar connector -->
+  <rect x="140" y="236" width="40" height="40" rx="4" fill="#333"/>
+
+  <!-- Center bar -->
+  <rect x="180" y="244" width="152" height="24" rx="4" fill="#f5f5f5"/>
+  <rect x="185" y="249" width="142" height="14" rx="2" fill="#e0e0e0"/>
+
+  <!-- Right bar connector -->
+  <rect x="332" y="236" width="40" height="40" rx="4" fill="#333"/>
+
+  <!-- Right weight plate -->
+  <rect x="372" y="180" width="80" height="152" rx="8" fill="#1a1a1a"/>
+  <rect x="382" y="190" width="60" height="132" rx="4" fill="#2a2a2a"/>
+
+  <!-- Weight plate details (left) -->
+  <circle cx="100" cy="256" r="20" fill="none" stroke="#ff6b35" stroke-width="3"/>
+  <text x="100" y="266" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ff6b35" text-anchor="middle">S</text>
+
+  <!-- Weight plate details (right) -->
+  <circle cx="412" cy="256" r="20" fill="none" stroke="#ff6b35" stroke-width="3"/>
+  <text x="412" y="266" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ff6b35" text-anchor="middle">T</text>
+
+  <!-- Grip marks on bar -->
+  <line x1="240" y1="244" x2="240" y2="268" stroke="#bbb" stroke-width="2"/>
+  <line x1="250" y1="244" x2="250" y2="268" stroke="#bbb" stroke-width="2"/>
+  <line x1="260" y1="244" x2="260" y2="268" stroke="#bbb" stroke-width="2"/>
+  <line x1="272" y1="244" x2="272" y2="268" stroke="#bbb" stroke-width="2"/>
+</svg>

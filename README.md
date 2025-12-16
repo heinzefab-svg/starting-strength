@@ -1,6 +1,6 @@
-# Starting Strength Workout Tracker
+# Strength Tracker
 
-Ein moderner, vollständig offline-fähiger Progressive Web App (PWA) Workout-Tracker für das Starting Strength Programm. Gebaut mit Vue.js 3 mit voller Unterstützung für Deutsch und Englisch.
+A modern, fully offline-capable Progressive Web App (PWA) for tracking your strength training workouts. Built with Vue.js 3 with full support for English and German.
 
 ## Features
 
@@ -57,11 +57,13 @@ Ein moderner, vollständig offline-fähiger Progressive Web App (PWA) Workout-Tr
 - Vollständig übersetzt inklusive Übungsanleitungen
 
 ### 📱 PWA Features
-- Offline-Funktionalität
-- Installierbar auf allen Geräten
-- Lokale Datenspeicherung
-- Service Worker für Caching
-- Funktioniert ohne Internet
+- Full offline functionality
+- Installable on all devices (iOS, Android, Desktop)
+- Local data storage
+- Service Worker for caching
+- Custom app icon and splash screen
+- Works without internet connection
+- One-click install prompt
 
 ## Installation
 
@@ -158,11 +160,17 @@ Alle Daten werden lokal im Browser's localStorage gespeichert. Um Daten zu siche
 
 ## Anpassungen
 
-### Icons ersetzen
-Ersetze die Platzhalter-Icons in `/public/`:
-- `icon-192.png` - 192x192px PNG
-- `icon-512.png` - 512x512px PNG
-- `favicon.ico` - Standard Favicon
+### Icons anpassen
+Edit `/public/icon.svg` and run:
+```bash
+npm run generate-icons
+```
+This generates all required icon sizes:
+- `icon-192.png` - 192x192px PWA icon
+- `icon-512.png` - 512x512px PWA icon
+- `apple-touch-icon.png` - 180x180px iOS icon
+- `favicon-32x32.png` - 32x32px favicon
+- `favicon-16x16.png` - 16x16px favicon
 
 ### Theme anpassen
 Bearbeite die CSS-Variablen in `src/style.css`:
