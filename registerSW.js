@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/starting-strength/sw.js', { scope: '/starting-strength/' })})}
