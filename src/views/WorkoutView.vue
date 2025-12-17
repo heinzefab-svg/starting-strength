@@ -114,11 +114,11 @@
             </div>
 
             <!-- Warmup & Plate Calculator Buttons -->
-            <div v-if="!exerciseData[currentExercise.key].isBodyweight && currentExercise.weight > 20" style="margin-bottom: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+            <div v-if="!exerciseData[currentExercise.key].isBodyweight && currentExercise.weight > 20" style="margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
               <button v-if="currentExercise.weight > 40" @click="showWarmupCalculator = true" class="btn btn-secondary" style="font-size: 0.875rem;">
                 {{ $t('workout.warmupCalculator') }}
               </button>
-              <button @click="showPlateCalculator = true" class="btn btn-secondary" style="font-size: 0.875rem;" :style="currentExercise.weight <= 40 ? 'grid-column: 1 / -1;' : ''">
+              <button @click="showPlateCalculator = true" class="btn btn-secondary" style="font-size: 0.875rem;">
                 {{ $t('workout.plateCalculator') }}
               </button>
             </div>
@@ -136,8 +136,11 @@
                   :step="exerciseData[currentExercise.key].increment"
                   v-model.number="currentExercise.weight"
                   @input="saveWorkoutState"
-                  style="margin: 0;"
+                  style="margin: 0 0 0.25rem 0;"
                 />
+                <div style="text-align: center; font-size: 1.25rem; color: var(--primary); font-weight: 700;">
+                  {{ currentExercise.weight }}{{ settings.weightUnit }}
+                </div>
               </div>
               <div>
                 <label style="font-size: 0.75rem; color: var(--text-tertiary); margin-bottom: 0.25rem; display: block;">{{ $t('workout.reps') }}</label>
@@ -148,8 +151,11 @@
                   :step="1"
                   v-model.number="currentSet.reps"
                   @input="saveWorkoutState"
-                  style="margin: 0;"
+                  style="margin: 0 0 0.25rem 0;"
                 />
+                <div style="text-align: center; font-size: 1.25rem; color: var(--primary); font-weight: 700;">
+                  {{ currentSet.reps }}
+                </div>
               </div>
             </div>
 
@@ -237,11 +243,13 @@
 
     <!-- Initial Assessment Modal -->
     <div v-if="showAssessment" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 1001; padding: 1rem; padding-bottom: 80px;">
-      <div class="card" style="max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; position: relative;">
-        <button @click="skipAssessment" style="position: absolute; top: 1rem; right: 1rem; background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; z-index: 1;">
-          ×
-        </button>
-        <div class="card-header">{{ $t('workout.initialAssessment') }}</div>
+      <div class="card" style="max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto;">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
+          <button @click="skipAssessment" style="background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+            ×
+          </button>
+        </div>
+        <div class="card-header" style="margin-top: 0;">{{ $t('workout.initialAssessment') }}</div>
         <p class="text-secondary mb-3">
           {{ $t('workout.assessmentDescription') }}
         </p>
@@ -250,9 +258,8 @@
           <h3 class="mb-2">{{ $t(exercise.nameKey) }}</h3>
 
           <div v-if="!exercise.isBodyweight">
-            <label style="display: flex; justify-content: space-between; align-items: center;">
-              <span>{{ $t('workout.currentWeight') }} ({{ settings.weightUnit }})</span>
-              <span style="font-size: 1.5rem; color: var(--primary); font-weight: 700;">{{ assessmentData[key] || 0 }}{{ settings.weightUnit }}</span>
+            <label style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem; display: block;">
+              {{ $t('workout.currentWeight') }} ({{ settings.weightUnit }})
             </label>
             <input
               type="range"
@@ -260,16 +267,19 @@
               :max="200"
               :step="exercise.increment"
               v-model.number="assessmentData[key]"
+              style="margin: 0 0 0.5rem 0;"
             />
-            <p class="text-tertiary" style="font-size: 0.875rem; margin-top: 0.5rem;">
+            <div style="text-align: center; font-size: 1.5rem; color: var(--primary); font-weight: 700; margin-bottom: 0.5rem;">
+              {{ assessmentData[key] || 0 }}{{ settings.weightUnit }}
+            </div>
+            <p class="text-tertiary" style="font-size: 0.875rem;">
               {{ $t('workout.assessmentWeightHelp') }}
             </p>
           </div>
 
           <div v-else>
-            <label style="display: flex; justify-content: space-between; align-items: center;">
-              <span>{{ $t('workout.maxReps') }}</span>
-              <span style="font-size: 1.5rem; color: var(--primary); font-weight: 700;">{{ assessmentData[key] || 0 }}</span>
+            <label style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem; display: block;">
+              {{ $t('workout.maxReps') }}
             </label>
             <input
               type="range"
@@ -277,11 +287,15 @@
               :max="20"
               :step="1"
               v-model.number="assessmentData[key]"
+              style="margin: 0 0 0.5rem 0;"
             />
-            <p class="text-tertiary" style="font-size: 0.875rem; margin-top: 0.5rem;">
+            <div style="text-align: center; font-size: 1.5rem; color: var(--primary); font-weight: 700; margin-bottom: 0.5rem;">
+              {{ assessmentData[key] || 0 }}
+            </div>
+            <p class="text-tertiary" style="font-size: 0.875rem; margin-bottom: 0.5rem;">
               {{ $t('workout.assessmentRepsHelp') }}
             </p>
-            <p v-if="assessmentData[key] >= 0" style="font-size: 0.875rem; color: var(--success); margin-top: 0.5rem;">
+            <p v-if="assessmentData[key] >= 0" style="font-size: 0.875rem; color: var(--success);">
               {{ $t('workout.startingReps') }}: {{ Math.max(1, Math.floor(assessmentData[key] * 0.8)) }}
             </p>
           </div>
@@ -300,10 +314,12 @@
 
     <!-- Alert Modal -->
     <div v-if="showAlert" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px;" @click.self="closeAlert">
-      <div class="card" style="max-width: 400px; width: 100%; text-align: center; position: relative;">
-        <button @click="closeAlert" style="position: absolute; top: 1rem; right: 1rem; background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; z-index: 1;">
-          ×
-        </button>
+      <div class="card" style="max-width: 400px; width: 100%; text-align: center;">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
+          <button @click="closeAlert" style="background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+            ×
+          </button>
+        </div>
         <p style="margin-bottom: 1.5rem; font-size: 1.125rem;">{{ alertMessage }}</p>
         <button @click="closeAlert" class="btn btn-primary" style="width: 100%;">
           OK
@@ -313,10 +329,12 @@
 
     <!-- Cancel Confirmation Modal -->
     <div v-if="showCancelConfirm" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px;" @click.self="closeCancelConfirm">
-      <div class="card" style="max-width: 400px; width: 100%; text-align: center; position: relative;">
-        <button @click="closeCancelConfirm" style="position: absolute; top: 1rem; right: 1rem; background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; z-index: 1;">
-          ×
-        </button>
+      <div class="card" style="max-width: 400px; width: 100%; text-align: center;">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
+          <button @click="closeCancelConfirm" style="background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+            ×
+          </button>
+        </div>
         <p style="margin-bottom: 1.5rem; font-size: 1.125rem;">{{ $t('workout.confirmCancel') }}</p>
         <div style="display: flex; gap: 1rem;">
           <button @click="confirmCancel" class="btn btn-danger" style="flex: 1;">
@@ -365,11 +383,13 @@
 
     <!-- Warmup Calculator Modal -->
     <div v-if="showWarmupCalculator && currentExercise" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px;" @click.self="showWarmupCalculator = false">
-      <div class="card" style="max-width: 500px; width: 100%; position: relative;">
-        <button @click="showWarmupCalculator = false" style="position: absolute; top: 1rem; right: 1rem; background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; z-index: 1;">
-          ×
-        </button>
-        <div class="card-header">{{ $t('workout.warmupCalculator') }}</div>
+      <div class="card" style="max-width: 500px; width: 100%;">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
+          <button @click="showWarmupCalculator = false" style="background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+            ×
+          </button>
+        </div>
+        <div class="card-header" style="margin-top: 0;">{{ $t('workout.warmupCalculator') }}</div>
         <p style="margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--text-secondary);">
           {{ $t('workout.warmupDescription') }}
         </p>
@@ -401,11 +421,13 @@
 
     <!-- Plate Calculator Modal -->
     <div v-if="showPlateCalculator && currentExercise" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px;" @click.self="showPlateCalculator = false">
-      <div class="card" style="max-width: 500px; width: 100%; position: relative;">
-        <button @click="showPlateCalculator = false" style="position: absolute; top: 1rem; right: 1rem; background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; z-index: 1;">
-          ×
-        </button>
-        <div class="card-header">{{ $t('workout.plateCalculator') }}</div>
+      <div class="card" style="max-width: 500px; width: 100%;">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
+          <button @click="showPlateCalculator = false" style="background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+            ×
+          </button>
+        </div>
+        <div class="card-header" style="margin-top: 0;">{{ $t('workout.plateCalculator') }}</div>
         <p style="margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--text-secondary);">
           {{ $t('workout.plateDescription') }}
         </p>
