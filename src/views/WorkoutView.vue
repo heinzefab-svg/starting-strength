@@ -242,7 +242,7 @@
     </div>
 
     <!-- Initial Assessment Modal -->
-    <div v-if="showAssessment" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 1001; padding: 1rem; padding-bottom: 80px;">
+    <div v-if="showAssessment" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 1001; padding: 1rem; padding-bottom: 80px; overflow: hidden;">
       <div class="card" style="max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto;">
         <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
           <button @click="skipAssessment" style="background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
@@ -301,11 +301,11 @@
           </div>
         </div>
 
-        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-          <button @click="completeAssessment" class="btn btn-success" style="flex: 1;">
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem;">
+          <button @click="completeAssessment" class="btn btn-success" style="width: 100%;">
             {{ $t('workout.startFirstWorkout') }}
           </button>
-          <button @click="skipAssessment" class="btn btn-secondary">
+          <button @click="skipAssessment" class="btn btn-secondary" style="width: 100%;">
             {{ $t('workout.skipAssessment') }}
           </button>
         </div>
@@ -313,7 +313,7 @@
     </div>
 
     <!-- Alert Modal -->
-    <div v-if="showAlert" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px;" @click.self="closeAlert">
+    <div v-if="showAlert" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px; overflow: hidden;" @click.self="closeAlert">
       <div class="card" style="max-width: 400px; width: 100%; text-align: center;">
         <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
           <button @click="closeAlert" style="background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
@@ -328,7 +328,7 @@
     </div>
 
     <!-- Cancel Confirmation Modal -->
-    <div v-if="showCancelConfirm" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px;" @click.self="closeCancelConfirm">
+    <div v-if="showCancelConfirm" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px; overflow: hidden;" @click.self="closeCancelConfirm">
       <div class="card" style="max-width: 400px; width: 100%; text-align: center;">
         <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
           <button @click="closeCancelConfirm" style="background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
@@ -348,8 +348,8 @@
     </div>
 
     <!-- Workout Summary Modal -->
-    <div v-if="showWorkoutSummary && workoutSummary" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px;">
-      <div class="card" style="max-width: 500px; width: 100%; position: relative; background: linear-gradient(135deg, rgba(0, 217, 161, 0.05) 0%, rgba(255, 215, 0, 0.05) 100%);">
+    <div v-if="showWorkoutSummary && workoutSummary" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px; overflow: hidden;" @click.self="showWorkoutSummary = false">
+      <div class="card" style="max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto; background: linear-gradient(135deg, rgba(0, 217, 161, 0.05) 0%, rgba(255, 215, 0, 0.05) 100%);">
         <div style="text-align: center; margin-bottom: 1.5rem;">
           <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎉</div>
           <h2 style="margin: 0; font-size: 1.75rem; color: var(--success);">{{ $t('workout.workoutComplete') }}</h2>
@@ -382,8 +382,8 @@
     </div>
 
     <!-- Warmup Calculator Modal -->
-    <div v-if="showWarmupCalculator && currentExercise" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px;" @click.self="showWarmupCalculator = false">
-      <div class="card" style="max-width: 500px; width: 100%;">
+    <div v-if="showWarmupCalculator && currentExercise" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px; overflow: hidden;" @click.self="showWarmupCalculator = false">
+      <div class="card" style="max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto;">
         <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
           <button @click="showWarmupCalculator = false" style="background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
             ×
@@ -420,8 +420,8 @@
     </div>
 
     <!-- Plate Calculator Modal -->
-    <div v-if="showPlateCalculator && currentExercise" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px;" @click.self="showPlateCalculator = false">
-      <div class="card" style="max-width: 500px; width: 100%;">
+    <div v-if="showPlateCalculator && currentExercise" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1002; padding: 1rem; padding-bottom: 80px; overflow: hidden;" @click.self="showPlateCalculator = false">
+      <div class="card" style="max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto;">
         <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
           <button @click="showPlateCalculator = false" style="background: var(--bg-tertiary); border: none; color: var(--text-secondary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
             ×
